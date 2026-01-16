@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: final_project
+
+  # 로컬(개발) 프로필을 기본값으로 설정
+  profiles:
+    active: dev
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dlrjsgh951@gmail.com
+    password: ${Google}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 로컬 DB 주소
+    url: jdbc:mysql://localhost:3306/semicolon?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true      # 로컬에선 쿼리 보이는 게 좋음
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 30MB
+      max-file-size: 10MB
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.type: TRACE
+
+# [로컬용 경로] 윈도우 경로 유지
+com:
+  semicolon:
+    backend:
+      upload: C:/dev/upload
+
+jwt:
+  secret: ${JWT_SECRET}
+
+# [로컬용 리다이렉트] localhost:3000 유지
+kakao:
+  client-id: ${KAKAO_CLIENT_ID}
+  client-secret: ${KAKAO_CLIENT_SECRET}
+  redirect-uri: http://localhost:3000/auth/kakao/callback
+  token-url: https://kauth.kakao.com/oauth/token
+  user-url: https://kapi.kakao.com/v2/user/me
+
+naver:
+  client-id: ${NAVER_CLIENT_ID}
+  client-secret: ${NAVER_CLIENT_SECRET}
+  redirect-uri: http://localhost:3000/auth/naver/callback
+  token-url: https://nid.naver.com/oauth2.0/token
+  user-url: https://openapi.naver.com/v1/nid/me
+
+portone:
+  store-id: "store-b3883a44-ac75-4cff-8df1-e77a3dea43b0"
+  channel-key: "channel-key-69ba4122-ea56-4238-a168-f5026d6b6ba3"
+  api-url: "https://api.portone.io"
+  api-secret: ${PORTONE_API_SECRET}
